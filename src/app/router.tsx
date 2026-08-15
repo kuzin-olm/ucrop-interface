@@ -74,4 +74,7 @@ export const router = createBrowserRouter([
       },
     ],
   },
-]);
+],
+{
+    basename: '/ucrop-interface',
+});
