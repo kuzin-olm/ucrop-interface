@@ -1,0 +1,31 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  padding: 0 10px;
+  border-radius: var(--radius-badge);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.active {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.planned {
+  background: var(--color-status-info-bg);
+  color: var(--color-status-info-text);
+}
+
+.in_progress {
+  background: var(--color-status-planned-bg);
+  color: var(--color-status-planned-text);
+}
+
+.inactive {
+  background: var(--color-status-history-bg);
+  color: var(--color-status-history-text);
+}

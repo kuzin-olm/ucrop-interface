@@ -1,0 +1,12 @@
+.wrap {
+  height: 160px;
+  border-radius: 12px;
+  background: #e8efe4;
+  overflow: hidden;
+}
+
+.svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}

@@ -1,0 +1,44 @@
+:root {
+  --color-bg: #f7f9f4;
+  --color-surface: #ffffff;
+  --color-primary: #2e7d32;
+  --color-primary-hover: #1b5e20;
+  --color-primary-light: #e8f5e9;
+  --color-text-primary: #1a2e1a;
+  --color-text-secondary: #5c6b5c;
+  --color-border: #e0e7e0;
+  --color-status-planned-bg: #fff8e1;
+  --color-status-planned-text: #f9a825;
+  --color-status-history-bg: #f5f5f5;
+  --color-status-history-text: #90a4ae;
+  --color-status-info-bg: #e3f2fd;
+  --color-status-info-text: #1565c0;
+  --color-status-error-bg: #fdecea;
+  --color-status-error-text: #c62828;
+  --color-row-hover: #f1f8f1;
+  --color-margin-high: #2e7d32;
+  --color-margin-medium: #ef6c00;
+  --color-margin-low: #c62828;
+  --color-danger: #c62828;
+  --color-overlay: rgba(26, 46, 26, 0.36);
+  --radius-card: 16px;
+  --radius-button: 10px;
+  --radius-badge: 999px;
+  --radius-input: 10px;
+  --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.06);
+  --shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.1);
+  --shadow-modal: 0 16px 48px rgba(26, 46, 26, 0.16);
+  --sidebar-width: 248px;
+  --topbar-height: 64px;
+  --content-max-width: 1520px;
+  --space-content-x: 32px;
+  --grid-gap: 22px;
+  --font-sans: 'Manrope', 'Segoe UI', system-ui, sans-serif;
+  --focus-ring: 2px solid var(--color-primary);
+}
+
+@media (max-width: 1023px) {
+  :root {
+    --space-content-x: 20px;
+  }
+}

@@ -1,0 +1,82 @@
+.meta {
+  margin-bottom: 20px;
+}
+
+.section {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.sectionTitle {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 14px;
+}
+
+.label {
+  color: var(--color-text-secondary);
+}
+
+.value {
+  font-weight: 600;
+  text-align: right;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chip {
+  height: 26px;
+  padding: 0 10px;
+  border-radius: var(--radius-badge);
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 26px;
+}
+
+.log {
+  display: grid;
+  gap: 8px;
+}
+
+.logRow {
+  display: grid;
+  grid-template-columns: 76px 1fr;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.time {
+  color: var(--color-text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.lastOk {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.lastErr {
+  color: var(--color-danger);
+  font-weight: 600;
+}
+
+.note {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}

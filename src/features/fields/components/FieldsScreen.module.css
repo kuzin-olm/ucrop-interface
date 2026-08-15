@@ -1,0 +1,46 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.title {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.subtitle {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.mapFallback {
+  height: 420px;
+  border-radius: var(--radius-card);
+  background: #eef2ea;
+}
+
+@media (max-width: 1023px) {
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .mapFallback {
+    height: 300px;
+  }
+}

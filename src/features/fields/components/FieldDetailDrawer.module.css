@@ -1,0 +1,67 @@
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.area {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.section {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.sectionTitle {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 14px;
+}
+
+.label {
+  color: var(--color-text-secondary);
+}
+
+.value {
+  font-weight: 600;
+}
+
+.history {
+  display: grid;
+  gap: 8px;
+}
+
+.historyRow {
+  display: grid;
+  grid-template-columns: 52px 1fr auto;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.historyYear {
+  color: var(--color-text-secondary);
+}
+
+.note {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
