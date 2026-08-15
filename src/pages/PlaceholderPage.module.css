@@ -1,0 +1,15 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.title {
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.text {
+  max-width: 560px;
+  color: var(--color-text-secondary);
+}

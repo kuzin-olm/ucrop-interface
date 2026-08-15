@@ -1,0 +1,129 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 220px;
+  padding: 22px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    box-shadow 0.18s ease,
+    transform 0.18s ease;
+}
+
+.card:hover,
+.card:focus-visible {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-1px);
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.titleGroup {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.iconWrap {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--color-primary-light);
+  flex-shrink: 0;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.params {
+  display: grid;
+  gap: 8px;
+}
+
+.param {
+  display: grid;
+  grid-template-columns: 18px 1fr auto;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.paramIcon {
+  color: var(--color-primary);
+}
+
+.paramLabel {
+  color: var(--color-text-secondary);
+}
+
+.paramValue {
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.high {
+  color: var(--color-margin-high);
+}
+
+.medium {
+  color: var(--color-margin-medium);
+}
+
+.low {
+  color: var(--color-margin-low);
+}
+
+.season {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--color-border);
+}
+
+.seasonMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.seasonLabel {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+.seasonValue {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.more {
+  align-self: flex-end;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-primary);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.card:hover .more,
+.card:focus-visible .more {
+  opacity: 1;
+}

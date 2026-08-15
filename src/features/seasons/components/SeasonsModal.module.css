@@ -1,0 +1,71 @@
+.list {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 16px;
+  max-height: 280px;
+  overflow: auto;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 6px;
+  align-items: center;
+  padding: 6px 8px;
+  border-radius: 10px;
+}
+
+.row:hover {
+  background: var(--color-bg);
+}
+
+.name {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.iconButton {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  color: var(--color-text-secondary);
+}
+
+.iconButton:hover:not(:disabled) {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.iconButton:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.create {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+}
+
+.error {
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--color-danger);
+}
+
+.confirm {
+  display: grid;
+  gap: 12px;
+}
+
+.confirmText {
+  color: var(--color-text-secondary);
+}
+
+.confirmActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
