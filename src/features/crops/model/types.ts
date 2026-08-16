@@ -21,6 +21,8 @@ export interface Crop {
     trend: number[];
   };
   icon?: string;
+  expectedSellPrice?: number;
+  sellPriceUnit?: 't' | 'c';
 }
 
 export type CreateCropInput = Omit<Crop, 'id' | 'yieldUnit' | 'lastSeasonResult' | 'icon'> & {

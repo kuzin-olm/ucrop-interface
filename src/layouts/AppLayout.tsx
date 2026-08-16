@@ -79,21 +79,25 @@ export function AppLayout() {
   const isPlansList = location.pathname === '/plans';
   const isPlansSection = location.pathname.startsWith('/plans');
   const isEmployees = location.pathname === '/employees';
-  const query = isFields || isCrops || isPlansList || isEmployees ? (searchParams.get('q') ?? '') : '';
+  const isMaterials = location.pathname === '/materials';
+  const query =
+    isFields || isCrops || isPlansList || isEmployees || isMaterials ? (searchParams.get('q') ?? '') : '';
   const searchPlaceholder = isFields
     ? 'Поиск полей...'
     : isPlansSection
       ? 'Поиск планов...'
       : isEmployees
         ? 'Поиск сотрудников...'
-        : 'Поиск культур...';
+        : isMaterials
+          ? 'Поиск материалов...'
+          : 'Поиск культур...';
 
   const handleSearch = (value: string) => {
     if (isPlansSection && !isPlansList) {
       navigate(value ? `/plans?q=${encodeURIComponent(value)}` : '/plans');
       return;
     }
-    if (!isFields && !isCrops && !isPlansList && !isEmployees) {
+    if (!isFields && !isCrops && !isPlansList && !isEmployees && !isMaterials) {
       navigate(value ? `/crops?q=${encodeURIComponent(value)}` : '/crops');
       return;
     }

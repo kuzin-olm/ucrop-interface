@@ -1,6 +1,6 @@
-import { CalendarRange, Coins, Layers3, TrendingUp } from 'lucide-react';
+import { Banknote, CalendarRange, Coins, Layers3, TrendingUp } from 'lucide-react';
 import { Badge } from '@/shared/ui/Badge';
-import { formatSowingWindow, formatYield } from '@/shared/lib/format';
+import { formatSellPrice, formatSowingWindow, formatYield } from '@/shared/lib/format';
 import { MARGIN_LABEL, STATUS_LABEL } from '../model/labels';
 import type { Crop } from '../model/types';
 import { CropIcon } from './CropIcon';
@@ -64,6 +64,11 @@ export function CropCard({ crop, onOpen }: CropCardProps) {
           <span className={`${styles.paramValue} ${styles[crop.marginPotential]}`}>
             {MARGIN_LABEL[crop.marginPotential]}
           </span>
+        </li>
+        <li className={styles.param}>
+          <Banknote size={16} className={styles.paramIcon} aria-hidden="true" />
+          <span className={styles.paramLabel}>Цена реализации</span>
+          <span className={styles.paramValue}>{formatSellPrice(crop.expectedSellPrice)}</span>
         </li>
       </ul>
 
