@@ -2,6 +2,7 @@ import { useEffect, useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, Sprout, TrendingUp, Wallet, X } from 'lucide-react';
 import { useAuth } from '@/app/auth';
+import { publicUrl } from '@/shared/lib/publicUrl';
 import styles from './LandingPage.module.css';
 
 const MODULES = [
@@ -58,7 +59,7 @@ export function LandingPage() {
   return (
     <div className={styles.page}>
       <div className={styles.ambient} aria-hidden="true">
-        <img className={styles.glow} src="/landing/aerial.jpg" alt="" />
+        <img className={styles.glow} src={publicUrl('landing/aerial.jpg')} alt="" />
         <div className={styles.orb1} />
         <div className={styles.orb2} />
         <div className={styles.noise} />
@@ -278,7 +279,7 @@ export function LandingPage() {
       <section className={styles.section}>
         <div className={styles.container}>
           <div className={styles.studio}>
-            <img className={styles.photo} src="/landing/portrait.jpg" alt="Агроном с планшетом в поле на закате" />
+            <img className={styles.photo} src={publicUrl('landing/portrait.jpg')} alt="Агроном с планшетом в поле на закате" />
             <div>
               <h2 className={styles.h2}>
                 Кабинет, который <span>едет в поле</span>
