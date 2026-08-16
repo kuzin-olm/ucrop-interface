@@ -11,6 +11,14 @@
   gap: 16px;
 }
 
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
 .title {
   font-size: 26px;
   font-weight: 700;
