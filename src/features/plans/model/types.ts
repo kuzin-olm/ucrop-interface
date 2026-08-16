@@ -1,6 +1,7 @@
 export type PlanGoal = 'maximize_margin';
 export type PlanStatus = 'draft' | 'calculating' | 'completed' | 'error';
 export type PeriodFilter = 'all' | '7d' | '30d' | 'year';
+export type PlanScope = 'mine' | 'all';
 
 export type PlanAuthor = {
   id: string;
@@ -61,4 +62,5 @@ export type PlanFilters = {
   status: 'all' | PlanStatus;
   author: string;
   period: PeriodFilter;
+  scope: PlanScope;
 };

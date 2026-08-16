@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 import { formatArea, formatSignedPerHa } from '@/shared/lib/format';
 import { usePlanResult } from '../hooks/usePlanResult';
 import { PlanStatusBadge } from './PlanStatusBadge';
@@ -9,11 +10,31 @@ import { AiSummary } from './AiSummary';
 import { PlanResultTable } from './PlanResultTable';
 import styles from './PlanResultScreen.module.css';
 
+function useBackToPlans() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const plansSearch =
+    location.state && typeof location.state === 'object' && 'plansSearch' in location.state
+      ? String(location.state.plansSearch ?? '')
+      : '';
+
+  return () => navigate(plansSearch ? `/plans?${plansSearch}` : '/plans');
+}
+
 const PlanResultMap = lazy(() => import('./PlanResultMap').then((module) => ({ default: module.PlanResultMap })));
+
+function BackToPlans() {
+  const backToPlans = useBackToPlans();
+  return (
+    <button type="button" className={styles.back} onClick={backToPlans} aria-label="К планам расчёта">
+      <ArrowLeft size={20} aria-hidden="true" />
+    </button>
+  );
+}
 
 export function PlanResultScreen() {
   const { planId } = useParams();
-  const navigate = useNavigate();
+  const backToPlans = useBackToPlans();
   const { plan, result, isLoading, isError, refetch } = usePlanResult(planId);
 
   if (isLoading) {
@@ -42,7 +63,7 @@ export function PlanResultScreen() {
         title="План не найден"
         text="Вернитесь к списку планов и выберите завершённый расчёт."
         actionLabel="К планам расчёта"
-        onAction={() => navigate('/plans')}
+        onAction={backToPlans}
       />
     );
   }
@@ -53,7 +74,7 @@ export function PlanResultScreen() {
         title="Результаты ещё недоступны"
         text="Результаты появляются после завершения расчёта."
         actionLabel="К планам расчёта"
-        onAction={() => navigate('/plans')}
+        onAction={backToPlans}
       />
     );
   }
@@ -62,10 +83,15 @@ export function PlanResultScreen() {
     <section className={styles.page}>
       <header className={styles.header}>
         <div className={styles.titleRow}>
-          <h1 className={styles.title}>{result.planName}</h1>
-          <PlanStatusBadge status="completed" />
+          <BackToPlans />
+          <div>
+            <div className={styles.heading}>
+              <h1 className={styles.title}>{result.planName}</h1>
+              <PlanStatusBadge status="completed" />
+            </div>
+            <p className={styles.subtitle}>План расчёта завершён • Результаты оптимизации</p>
+          </div>
         </div>
-        <p className={styles.subtitle}>План расчёта завершён • Результаты оптимизации</p>
       </header>
 
       <div className={styles.kpis}>

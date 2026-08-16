@@ -9,7 +9,11 @@ function matchesPeriod(iso: string, period: PeriodFilter): boolean {
   return new Date(iso).getFullYear() === new Date().getFullYear();
 }
 
-export function filterPlans(plans: CalculationPlan[], filters: PlanFilters): CalculationPlan[] {
+export function filterPlans(
+  plans: CalculationPlan[],
+  filters: PlanFilters,
+  currentUserId?: string,
+): CalculationPlan[] {
   const query = filters.query.trim().toLowerCase();
 
   return plans.filter((plan) => {
@@ -19,7 +23,15 @@ export function filterPlans(plans: CalculationPlan[], filters: PlanFilters): Cal
       (plan.description ?? '').toLowerCase().includes(query);
     const matchesStatus = filters.status === 'all' || plan.status === filters.status;
     const matchesAuthor = filters.author === 'all' || plan.createdBy.id === filters.author;
-    return matchesQuery && matchesStatus && matchesAuthor && matchesPeriod(plan.createdAt, filters.period);
+    const matchesScope =
+      filters.scope !== 'mine' || Boolean(currentUserId && plan.createdBy.id === currentUserId);
+    return (
+      matchesQuery &&
+      matchesStatus &&
+      matchesAuthor &&
+      matchesScope &&
+      matchesPeriod(plan.createdAt, filters.period)
+    );
   });
 }
 

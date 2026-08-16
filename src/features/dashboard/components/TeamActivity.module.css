@@ -19,17 +19,33 @@
 
 .row {
   display: grid;
-  grid-template-columns: minmax(140px, 1.2fr) repeat(3, 56px) minmax(80px, 1fr);
+  grid-template-columns: minmax(148px, 1.3fr) 52px 82px 58px minmax(92px, 1fr);
   gap: 10px;
   align-items: center;
+}
+
+.headRow {
+  align-items: end;
 }
 
 .head {
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.03em;
+  line-height: 1.2;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+.num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.value {
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .person {
@@ -57,12 +73,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-.metric {
-  font-size: 14px;
-  font-weight: 600;
-  text-align: right;
 }
 
 .bar {

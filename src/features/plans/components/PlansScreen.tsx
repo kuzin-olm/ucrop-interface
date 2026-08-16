@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Plus } from 'lucide-react';
+import { useAuth } from '@/app/auth';
 import { Button } from '@/shared/ui/Button';
 import { useToast } from '@/shared/ui/Toast';
 import { useStartPlan, useStopPlan, usePlans } from '../hooks/usePlans';
@@ -10,11 +11,13 @@ import type {
   PeriodFilter,
   PlanAuthor,
   PlanFilters as PlanFiltersState,
+  PlanScope,
   PlanStatus,
 } from '../model/types';
 import { PlanDeleteDialog } from './PlanDeleteDialog';
 import { PlanDetailDrawer } from './PlanDetailDrawer';
 import { PlanFilters } from './PlanFilters';
+import { PlanScopeToggle } from './PlanScopeToggle';
 import { PlanWizard } from './PlanWizard';
 import { PlansEmptyState } from './PlansEmptyState';
 import { PlansErrorState } from './PlansErrorState';
@@ -35,8 +38,13 @@ function readPeriod(value: string | null): PeriodFilter {
   return 'all';
 }
 
+function readScope(value: string | null): PlanScope {
+  return value === 'mine' ? 'mine' : 'all';
+}
+
 export function PlansScreen() {
   const { notify } = useToast();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const { data, isLoading, isError, refetch } = usePlans();
@@ -54,14 +62,23 @@ export function PlansScreen() {
       status: readStatus(searchParams.get('status')),
       author: searchParams.get('author') ?? 'all',
       period: readPeriod(searchParams.get('period')),
+      scope: readScope(searchParams.get('scope')),
     }),
     [searchParams],
   );
 
   const plans = data ?? [];
-  const visible = useMemo(() => filterPlans(plans, filters), [plans, filters]);
+  const visible = useMemo(
+    () => filterPlans(plans, filters, user?.id),
+    [plans, filters, user?.id],
+  );
+  const ownCount = useMemo(
+    () => (user ? plans.filter((plan) => plan.createdBy.id === user.id).length : 0),
+    [plans, user],
+  );
   const selected = plans.find((plan) => plan.id === selectedId) ?? null;
   const filtersActive = hasActivePlanFilters(filters);
+  const mineEmpty = filters.scope === 'mine' && ownCount === 0 && !filtersActive;
 
   const authors = useMemo(() => {
     const map = new Map<string, PlanAuthor>();
@@ -90,6 +107,19 @@ export function PlansScreen() {
     else params.delete('author');
     if (next.period !== 'all') params.set('period', next.period);
     else params.delete('period');
+    if (next.scope === 'mine') params.set('scope', 'mine');
+    else params.delete('scope');
+    setSearchParams(params, { replace: true });
+  };
+
+  const writeScope = (scope: PlanScope) => {
+    const params = new URLSearchParams(searchParams);
+    if (scope === 'mine') {
+      params.set('scope', 'mine');
+      params.delete('author');
+    } else {
+      params.delete('scope');
+    }
     setSearchParams(params, { replace: true });
   };
 
@@ -109,7 +139,9 @@ export function PlansScreen() {
   };
 
   const openResult = (plan: CalculationPlan) => {
-    navigate(`/plans/${plan.id}/results`);
+    navigate(`/plans/${plan.id}/results`, {
+      state: { plansSearch: searchParams.toString() },
+    });
   };
 
   const openEdit = (plan: CalculationPlan) => {
@@ -123,9 +155,12 @@ export function PlansScreen() {
     <section className={styles.page}>
       <header className={styles.header}>
         <h1 className={styles.title}>Планы расчёта</h1>
-        <Button icon={<Plus size={16} aria-hidden="true" />} onClick={openCreate}>
-          Создать новый план
-        </Button>
+        <div className={styles.actions}>
+          {user ? <PlanScopeToggle value={filters.scope} onChange={writeScope} /> : null}
+          <Button icon={<Plus size={16} aria-hidden="true" />} onClick={openCreate}>
+            Создать новый план
+          </Button>
+        </div>
       </header>
 
       {!isLoading && !isError && plans.length > 0 ? (
@@ -133,6 +168,7 @@ export function PlansScreen() {
           value={filters}
           authors={authors}
           canReset={filtersActive}
+          showAuthor={filters.scope === 'all'}
           onChange={writeFilters}
           onReset={resetFilters}
         />
@@ -151,7 +187,17 @@ export function PlansScreen() {
         />
       ) : null}
 
-      {!isLoading && !isError && plans.length > 0 && visible.length === 0 ? (
+      {!isLoading && !isError && plans.length > 0 && visible.length === 0 && mineEmpty ? (
+        <PlansEmptyState
+          title="У вас пока нет планов"
+          text="Создайте план или откройте все планы организации."
+          actionLabel="Создать новый план"
+          onAction={openCreate}
+          withPlus
+        />
+      ) : null}
+
+      {!isLoading && !isError && plans.length > 0 && visible.length === 0 && !mineEmpty ? (
         <PlansEmptyState
           title="По выбранным фильтрам ничего не найдено"
           text="Сбросьте фильтры или измените условия поиска."

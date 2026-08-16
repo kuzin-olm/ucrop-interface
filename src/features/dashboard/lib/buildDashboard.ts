@@ -1,7 +1,11 @@
 import type { CalculationPlan } from '@/features/plans/model/types';
 import type { DashboardData } from '../model/types';
 
-export function buildDashboard(plans: CalculationPlan[], seasonName: string): DashboardData {
+export function buildDashboard(
+  plans: CalculationPlan[],
+  seasonName: string,
+  people: Array<{ id: string; name: string }> = [],
+): DashboardData {
   const seasonal = plans;
 
   const plansByStatus = {
@@ -16,6 +20,15 @@ export function buildDashboard(plans: CalculationPlan[], seasonName: string): Da
     string,
     { userId: string; name: string; created: number; inProgress: number; completed: number }
   >();
+  people.forEach((person) => {
+    teamMap.set(person.id, {
+      userId: person.id,
+      name: person.name,
+      created: 0,
+      inProgress: 0,
+      completed: 0,
+    });
+  });
   seasonal.forEach((plan) => {
     const current = teamMap.get(plan.createdBy.id) ?? {
       userId: plan.createdBy.id,
