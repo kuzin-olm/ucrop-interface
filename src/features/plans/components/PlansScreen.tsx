@@ -139,7 +139,9 @@ export function PlansScreen() {
   };
 
   const openResult = (plan: CalculationPlan) => {
-    navigate(`/plans/${plan.id}/results`);
+    navigate(`/plans/${plan.id}/results`, {
+      state: { plansSearch: searchParams.toString() },
+    });
   };
 
   const openEdit = (plan: CalculationPlan) => {
