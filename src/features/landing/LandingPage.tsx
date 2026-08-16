@@ -58,7 +58,7 @@ export function LandingPage() {
   return (
     <div className={styles.page}>
       <div className={styles.ambient} aria-hidden="true">
-        <img className={styles.glow} src="/landing/aerial.jpg" alt="" />
+        <img className={styles.glow} src={`${import.meta.env.BASE_URL}landing/aerial.jpg`} alt="" />
         <div className={styles.orb1} />
         <div className={styles.orb2} />
         <div className={styles.noise} />
@@ -278,7 +278,7 @@ export function LandingPage() {
       <section className={styles.section}>
         <div className={styles.container}>
           <div className={styles.studio}>
-            <img className={styles.photo} src="/landing/portrait.jpg" alt="Агроном с планшетом в поле на закате" />
+            <img className={styles.photo} src={`${import.meta.env.BASE_URL}landing/portrait.jpg`} alt="Агроном с планшетом в поле на закате" />
             <div>
               <h2 className={styles.h2}>
                 Кабинет, который <span>едет в поле</span>
