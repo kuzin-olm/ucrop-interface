@@ -1,4 +1,4 @@
-import { createContext, useContext, useMemo, useState, type ReactNode } from 'react';
+import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { authRepository } from '@/features/auth/api/authRepository';
 import type { Organization, PublicUser } from '@/features/auth/model/types';
@@ -8,6 +8,8 @@ type AuthContextValue = {
   organization: Organization | null;
   login: (email: string, password: string) => void;
   register: (input: { name: string; organizationName: string; email: string; password: string }) => void;
+  acceptInvite: (token: string, password: string) => void;
+  refreshUser: () => void;
   logout: () => void;
 };
 
@@ -40,6 +42,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const next = authRepository.register(input);
         setState(next);
       },
+      acceptInvite: (token, password) => {
+        const next = authRepository.acceptInvite(token, password);
+        setState(next);
+      },
+      refreshUser: () => {
+        setState(readInitial());
+      },
       logout: () => {
         authRepository.clearSession();
         setState({ user: null, organization: null });
@@ -60,9 +69,12 @@ export function useAuth() {
 }
 
 export function RequireAuth({ children }: { children: ReactNode }) {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const location = useLocation();
-  if (!user) {
+  useEffect(() => {
+    if (user?.status === 'inactive') logout();
+  }, [user, logout]);
+  if (!user || user.status === 'inactive') {
     return <Navigate to="/login" replace state={{ from: location.pathname }} />;
   }
   return children;

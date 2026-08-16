@@ -1,8 +1,10 @@
 import { Navigate, createBrowserRouter } from 'react-router-dom';
 import { GuestOnly, RequireAuth } from '@/app/auth';
 import { AppLayout } from '@/layouts/AppLayout';
+import { AcceptInvitePage } from '@/pages/AcceptInvitePage';
 import { CropsPage } from '@/pages/CropsPage';
 import { DashboardPage } from '@/pages/DashboardPage';
+import { EmployeesPage } from '@/pages/EmployeesPage';
 import { FieldsPage } from '@/pages/FieldsPage';
 import { HomePage } from '@/pages/HomePage';
 import { LoginPage } from '@/pages/LoginPage';
@@ -33,6 +35,10 @@ export const router = createBrowserRouter([
     ),
   },
   {
+    path: '/invite/:token',
+    element: <AcceptInvitePage />,
+  },
+  {
     element: (
       <RequireAuth>
         <AppLayout />
@@ -58,6 +64,10 @@ export const router = createBrowserRouter([
       {
         path: 'crops',
         element: <CropsPage />,
+      },
+      {
+        path: 'employees',
+        element: <EmployeesPage />,
       },
       {
         path: 'settings',

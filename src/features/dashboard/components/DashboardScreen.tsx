@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { LayoutDashboard } from 'lucide-react';
 import { useSeason } from '@/app/season';
 import { Button } from '@/shared/ui/Button';
+import { useEmployees } from '@/features/employees/hooks/useEmployees';
 import { usePlans } from '@/features/plans/hooks/usePlans';
 import { PlansErrorState } from '@/features/plans/components/PlansErrorState';
 import { buildDashboard } from '../lib/buildDashboard';
@@ -14,10 +15,21 @@ export function DashboardScreen() {
   const { seasonName } = useSeason();
   const navigate = useNavigate();
   const { data, isLoading, isError, refetch } = usePlans();
+  const employees = useEmployees();
 
-  const dashboard = useMemo(() => buildDashboard(data ?? [], seasonName), [data, seasonName]);
+  const dashboard = useMemo(
+    () =>
+      buildDashboard(
+        data ?? [],
+        seasonName,
+        (employees.data ?? [])
+          .filter((employee) => employee.status === 'active')
+          .map((employee) => ({ id: employee.id, name: employee.fullName })),
+      ),
+    [data, employees.data, seasonName],
+  );
 
-  if (isLoading) {
+  if (isLoading || employees.isLoading) {
     return (
       <section className={styles.page} aria-busy="true" aria-label="Загрузка дашборда">
         <header className={styles.header}>

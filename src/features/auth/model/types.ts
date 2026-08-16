@@ -3,6 +3,8 @@ export type Organization = {
   name: string;
 };
 
+export type UserStatus = 'active' | 'inactive';
+
 export type AuthUser = {
   id: string;
   organizationId: string;
@@ -10,6 +12,10 @@ export type AuthUser = {
   email: string;
   password: string;
   role: string;
+  status?: UserStatus;
+  lastLoginAt?: string;
+  inviteToken?: string;
+  inviteExpiresAt?: string;
 };
 
 export type PublicUser = Omit<AuthUser, 'password'>;

@@ -14,6 +14,8 @@ export const SEED_USERS: AuthUser[] = [
     email: 'anna@agro.local',
     password: 'demo123',
     role: 'Агроном',
+    status: 'active',
+    lastLoginAt: '2026-08-16T08:12:00',
   },
   {
     id: 'user-igor',
@@ -22,6 +24,8 @@ export const SEED_USERS: AuthUser[] = [
     email: 'igor@agro.local',
     password: 'demo123',
     role: 'Аналитик',
+    status: 'active',
+    lastLoginAt: '2026-08-14T15:40:00',
   },
   {
     id: 'user-maria',
@@ -30,5 +34,6 @@ export const SEED_USERS: AuthUser[] = [
     email: 'maria@agro.local',
     password: 'demo123',
     role: 'Агроном',
+    status: 'active',
   },
 ];
