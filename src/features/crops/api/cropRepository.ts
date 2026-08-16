@@ -24,7 +24,11 @@ function inferIcon(name: string): string {
 }
 
 function normalize(crops: Crop[]): Crop[] {
-  return crops.map((crop) => ({ ...crop, seasonId: resolveSeasonId(crop.seasonId) }));
+  return crops.map((crop) => ({
+    ...crop,
+    seasonId: resolveSeasonId(crop.seasonId),
+    sellPriceUnit: crop.expectedSellPrice == null ? crop.sellPriceUnit : (crop.sellPriceUnit ?? 't'),
+  }));
 }
 
 function readStore(): Crop[] {

@@ -60,3 +60,8 @@ export function formatSignedPerHa(value: number): string {
   const amount = Math.round(Math.abs(value)).toLocaleString('ru-RU');
   return `${value >= 0 ? '+' : '−'}${amount} ₽/га`;
 }
+
+export function formatSellPrice(value?: number): string {
+  if (value == null || Number.isNaN(value)) return '—';
+  return `${Math.round(value).toLocaleString('ru-RU')} ₽/т`;
+}

@@ -13,6 +13,8 @@ export const SEED_CROPS: Crop[] = [
     marginPotential: 'high',
     lastSeasonResult: { yield: 4.1, trend: [3.6, 3.8, 3.7, 4.0, 4.1] },
     icon: 'wheat',
+    expectedSellPrice: 15_200,
+    sellPriceUnit: 't',
   },
   {
     id: 'crop-barley',
@@ -26,6 +28,8 @@ export const SEED_CROPS: Crop[] = [
     marginPotential: 'medium',
     lastSeasonResult: { yield: 3.6, trend: [3.4, 3.5, 3.3, 3.7, 3.6] },
     icon: 'barley',
+    expectedSellPrice: 12_400,
+    sellPriceUnit: 't',
   },
   {
     id: 'crop-corn',
@@ -39,6 +43,8 @@ export const SEED_CROPS: Crop[] = [
     marginPotential: 'high',
     lastSeasonResult: { yield: 6.2, trend: [5.4, 5.8, 6.0, 5.9, 6.2] },
     icon: 'corn',
+    expectedSellPrice: 13_800,
+    sellPriceUnit: 't',
   },
   {
     id: 'crop-oat',
@@ -52,6 +58,8 @@ export const SEED_CROPS: Crop[] = [
     marginPotential: 'low',
     lastSeasonResult: { yield: 2.7, trend: [3.1, 2.9, 2.8, 2.6, 2.7] },
     icon: 'wheat',
+    expectedSellPrice: 10_500,
+    sellPriceUnit: 't',
   },
   {
     id: 'crop-sunflower',
@@ -65,6 +73,8 @@ export const SEED_CROPS: Crop[] = [
     marginPotential: 'high',
     lastSeasonResult: { yield: 2.3, trend: [2.0, 2.1, 2.2, 2.1, 2.3] },
     icon: 'sunflower',
+    expectedSellPrice: 34_600,
+    sellPriceUnit: 't',
   },
   {
     id: 'crop-rapeseed',
@@ -78,6 +88,8 @@ export const SEED_CROPS: Crop[] = [
     marginPotential: 'medium',
     lastSeasonResult: { yield: 1.9, trend: [2.2, 2.0, 1.8, 2.0, 1.9] },
     icon: 'rapeseed',
+    expectedSellPrice: 37_200,
+    sellPriceUnit: 't',
   },
   {
     id: 'crop-soy',
@@ -91,6 +103,8 @@ export const SEED_CROPS: Crop[] = [
     marginPotential: 'high',
     lastSeasonResult: { yield: 2.0, trend: [1.7, 1.8, 1.9, 2.1, 2.0] },
     icon: 'soy',
+    expectedSellPrice: 39_800,
+    sellPriceUnit: 't',
   },
   {
     id: 'crop-pea',
@@ -104,6 +118,8 @@ export const SEED_CROPS: Crop[] = [
     marginPotential: 'medium',
     lastSeasonResult: { yield: 2.6, trend: [2.4, 2.5, 2.3, 2.7, 2.6] },
     icon: 'pea',
+    expectedSellPrice: 18_400,
+    sellPriceUnit: 't',
   },
   {
     id: 'crop-chickpea',
@@ -117,5 +133,7 @@ export const SEED_CROPS: Crop[] = [
     marginPotential: 'medium',
     lastSeasonResult: { yield: 1.6, trend: [1.4, 1.5, 1.5, 1.7, 1.6] },
     icon: 'pea',
+    expectedSellPrice: 24_900,
+    sellPriceUnit: 't',
   },
 ];

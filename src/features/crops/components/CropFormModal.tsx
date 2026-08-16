@@ -23,6 +23,7 @@ type FormState = {
   sowingEnd: string;
   preferredSoil: string;
   marginPotential: MarginPotential;
+  expectedSellPrice: string;
 };
 
 const INITIAL_FORM: FormState = {
@@ -34,6 +35,7 @@ const INITIAL_FORM: FormState = {
   sowingEnd: '',
   preferredSoil: SOIL_OPTIONS[0],
   marginPotential: 'medium',
+  expectedSellPrice: '',
 };
 
 function toForm(crop: Crop | null): FormState {
@@ -47,6 +49,7 @@ function toForm(crop: Crop | null): FormState {
     sowingEnd: crop.sowingWindow.end === '—' ? '' : crop.sowingWindow.end,
     preferredSoil: crop.preferredSoil,
     marginPotential: crop.marginPotential,
+    expectedSellPrice: crop.expectedSellPrice == null ? '' : String(crop.expectedSellPrice),
   };
 }
 
@@ -91,6 +94,10 @@ export function CropFormModal({ open, crop, onClose, onSaved }: CropFormModalPro
       },
       preferredSoil: form.preferredSoil,
       marginPotential: form.marginPotential,
+      expectedSellPrice: form.expectedSellPrice.trim()
+        ? Number(form.expectedSellPrice.replace(',', '.'))
+        : undefined,
+      sellPriceUnit: form.expectedSellPrice.trim() ? 't' : undefined,
     };
 
     if (crop) {
@@ -157,17 +164,32 @@ export function CropFormModal({ open, crop, onClose, onSaved }: CropFormModalPro
           </Field>
         </div>
 
-        <Field label="Средняя урожайность, т/га" htmlFor="crop-yield">
-          <TextInput
-            id="crop-yield"
-            type="number"
-            min="0"
-            step="0.1"
-            value={form.averageYield}
-            onChange={(event) => setForm((current) => ({ ...current, averageYield: event.target.value }))}
-            placeholder="2.5"
-          />
-        </Field>
+        <div className={styles.row}>
+          <Field label="Средняя урожайность, т/га" htmlFor="crop-yield">
+            <TextInput
+              id="crop-yield"
+              type="number"
+              min="0"
+              step="0.1"
+              value={form.averageYield}
+              onChange={(event) => setForm((current) => ({ ...current, averageYield: event.target.value }))}
+              placeholder="2.5"
+            />
+          </Field>
+          <Field label="Ожидаемая цена реализации, ₽/т" htmlFor="crop-sell-price">
+            <TextInput
+              id="crop-sell-price"
+              type="number"
+              min="0"
+              step="1"
+              value={form.expectedSellPrice}
+              onChange={(event) =>
+                setForm((current) => ({ ...current, expectedSellPrice: event.target.value }))
+              }
+              placeholder="15200"
+            />
+          </Field>
+        </div>
 
         <div className={styles.row}>
           <Field label="Начало сева" htmlFor="crop-sowing-start">

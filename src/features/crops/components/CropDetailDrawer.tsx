@@ -1,7 +1,7 @@
 import { Button } from '@/shared/ui/Button';
 import { Badge } from '@/shared/ui/Badge';
 import { Drawer } from '@/shared/ui/Drawer';
-import { formatSowingWindow, formatYield } from '@/shared/lib/format';
+import { formatSellPrice, formatSowingWindow, formatYield } from '@/shared/lib/format';
 import { CATEGORY_LABEL, MARGIN_LABEL, STATUS_LABEL } from '../model/labels';
 import type { Crop } from '../model/types';
 import { CropIcon } from './CropIcon';
@@ -56,6 +56,10 @@ export function CropDetailDrawer({ crop, onClose, onEdit, onDelete }: CropDetail
             <div className={styles.row}>
               <span className={styles.label}>Маржинальность</span>
               <span className={styles.value}>{MARGIN_LABEL[crop.marginPotential]}</span>
+            </div>
+            <div className={styles.row}>
+              <span className={styles.label}>Ожидаемая цена реализации</span>
+              <span className={styles.value}>{formatSellPrice(crop.expectedSellPrice)}</span>
             </div>
           </section>
 
