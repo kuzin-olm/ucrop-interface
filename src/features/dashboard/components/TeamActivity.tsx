@@ -18,11 +18,11 @@ export function TeamActivity({ rows }: { rows: DashboardData['teamActivity'] }) 
         <p className={styles.empty}>В этом сезоне планов ещё нет.</p>
       ) : (
         <div className={styles.list}>
-          <div className={styles.row}>
+          <div className={`${styles.row} ${styles.headRow}`}>
             <span className={styles.head}>Сотрудник</span>
-            <span className={`${styles.head} ${styles.metric}`}>Созд.</span>
-            <span className={`${styles.head} ${styles.metric}`}>В работе</span>
-            <span className={`${styles.head} ${styles.metric}`}>Готово</span>
+            <span className={`${styles.head} ${styles.num}`}>Созд.</span>
+            <span className={`${styles.head} ${styles.num}`}>В работе</span>
+            <span className={`${styles.head} ${styles.num}`}>Готово</span>
             <span className={styles.head}>Доля готовых</span>
           </div>
           {rows.map((row) => {
@@ -35,9 +35,9 @@ export function TeamActivity({ rows }: { rows: DashboardData['teamActivity'] }) 
                   </span>
                   <span className={styles.name}>{row.name}</span>
                 </div>
-                <span className={styles.metric}>{row.created}</span>
-                <span className={styles.metric}>{row.inProgress}</span>
-                <span className={styles.metric}>{row.completed}</span>
+                <span className={`${styles.num} ${styles.value}`}>{row.created}</span>
+                <span className={`${styles.num} ${styles.value}`}>{row.inProgress}</span>
+                <span className={`${styles.num} ${styles.value}`}>{row.completed}</span>
                 <div
                   className={styles.bar}
                   role="meter"

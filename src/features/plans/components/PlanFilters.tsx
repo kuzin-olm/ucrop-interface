@@ -7,6 +7,7 @@ type PlanFiltersProps = {
   value: PlanFiltersState;
   authors: PlanAuthor[];
   canReset: boolean;
+  showAuthor: boolean;
   onChange: (next: PlanFiltersState) => void;
   onReset: () => void;
 };
@@ -14,7 +15,7 @@ type PlanFiltersProps = {
 const STATUSES: PlanStatus[] = ['draft', 'calculating', 'completed', 'error'];
 const PERIODS: PeriodFilter[] = ['all', '7d', '30d', 'year'];
 
-export function PlanFilters({ value, authors, canReset, onChange, onReset }: PlanFiltersProps) {
+export function PlanFilters({ value, authors, canReset, showAuthor, onChange, onReset }: PlanFiltersProps) {
   return (
     <div className={styles.row}>
       <label className={styles.field}>
@@ -35,21 +36,23 @@ export function PlanFilters({ value, authors, canReset, onChange, onReset }: Pla
         </select>
       </label>
 
-      <label className={styles.field}>
-        <span className={styles.label}>Кто создал</span>
-        <select
-          className={cn(styles.select, value.author !== 'all' && styles.active)}
-          value={value.author}
-          onChange={(event) => onChange({ ...value, author: event.target.value })}
-        >
-          <option value="all">Все авторы</option>
-          {authors.map((author) => (
-            <option key={author.id} value={author.id}>
-              {author.name}
-            </option>
-          ))}
-        </select>
-      </label>
+      {showAuthor ? (
+        <label className={styles.field}>
+          <span className={styles.label}>Кто создал</span>
+          <select
+            className={cn(styles.select, value.author !== 'all' && styles.active)}
+            value={value.author}
+            onChange={(event) => onChange({ ...value, author: event.target.value })}
+          >
+            <option value="all">Все авторы</option>
+            {authors.map((author) => (
+              <option key={author.id} value={author.id}>
+                {author.name}
+              </option>
+            ))}
+          </select>
+        </label>
+      ) : null}
 
       <label className={styles.field}>
         <span className={styles.label}>Период</span>
