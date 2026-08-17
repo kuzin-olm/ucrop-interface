@@ -1,0 +1,76 @@
+.lead {
+  margin-bottom: 20px;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.card {
+  padding: 18px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-bg);
+}
+
+.card[data-current] {
+  border-color: var(--color-primary);
+  background: var(--color-primary-light);
+}
+
+.plan {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.hint {
+  margin-top: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.desc {
+  margin: 10px 0 12px;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  line-height: 1.45;
+}
+
+.points {
+  display: grid;
+  gap: 6px;
+  font-size: 13px;
+}
+
+.points li {
+  padding-left: 14px;
+  position: relative;
+}
+
+.points li::before {
+  content: '';
+  position: absolute;
+  top: 7px;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-primary);
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+@media (max-width: 800px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

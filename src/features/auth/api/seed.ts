@@ -3,7 +3,12 @@ import type { AuthUser, Organization } from '../model/types';
 export const DEFAULT_ORGANIZATION_ID = 'org-south';
 
 export const SEED_ORGANIZATIONS: Organization[] = [
-  { id: DEFAULT_ORGANIZATION_ID, name: 'Агрохолдинг Юг' },
+  {
+    id: DEFAULT_ORGANIZATION_ID,
+    name: 'Агрохолдинг Юг',
+    region: 'Краснодарский край',
+    plan: 'pro',
+  },
 ];
 
 export const SEED_USERS: AuthUser[] = [

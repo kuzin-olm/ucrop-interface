@@ -18,6 +18,14 @@ function readJson<T>(key: string, fallback: T): T {
   }
 }
 
+function normalizeOrg(org: Organization): Organization {
+  const plan = org.plan === 'pro' || org.plan === 'enterprise' || org.plan === 'free' ? org.plan : undefined;
+  return {
+    ...org,
+    plan: plan ?? (org.id === DEFAULT_ORGANIZATION_ID ? 'pro' : 'free'),
+  };
+}
+
 function normalizeUser(user: AuthUser): AuthUser {
   return {
     ...user,
@@ -26,7 +34,7 @@ function normalizeUser(user: AuthUser): AuthUser {
   };
 }
 
-let organizations = readJson<Organization[]>(ORG_KEY, [...SEED_ORGANIZATIONS]);
+let organizations = readJson<Organization[]>(ORG_KEY, [...SEED_ORGANIZATIONS]).map(normalizeOrg);
 let users = readJson<AuthUser[]>(USERS_KEY, [...SEED_USERS]).map(normalizeUser);
 
 function writeOrgs(): void {
@@ -112,7 +120,7 @@ export const authRepository = {
       throw new Error('Пользователь с таким email уже есть');
     }
 
-    const organization: Organization = { id: crypto.randomUUID(), name: organizationName };
+    const organization: Organization = { id: crypto.randomUUID(), name: organizationName, plan: 'free' };
     const user: AuthUser = {
       id: crypto.randomUUID(),
       organizationId: organization.id,
@@ -132,6 +140,22 @@ export const authRepository = {
     this.setSession({ userId: user.id });
 
     return { user: toPublic(user), organization };
+  },
+
+  updateOrganization(input: { id: string; name: string; inn?: string; region?: string }): Organization {
+    const current = organizations.find((item) => item.id === input.id);
+    if (!current) throw new Error('Организация не найдена');
+    const name = input.name.trim();
+    if (!name) throw new Error('Укажите название организации');
+    const next: Organization = {
+      ...current,
+      name,
+      inn: input.inn?.trim() || undefined,
+      region: input.region?.trim() || undefined,
+    };
+    organizations = organizations.map((item) => (item.id === current.id ? next : item));
+    writeOrgs();
+    return { ...next };
   },
 
   listByOrganization(organizationId: string): AuthUser[] {
