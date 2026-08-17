@@ -80,8 +80,9 @@ export function AppLayout() {
   const isPlansSection = location.pathname.startsWith('/plans');
   const isEmployees = location.pathname === '/employees';
   const isMaterials = location.pathname === '/materials';
-  const query =
-    isFields || isCrops || isPlansList || isEmployees || isMaterials ? (searchParams.get('q') ?? '') : '';
+  const isOrganization = location.pathname === '/organization';
+  const searchEnabled = isFields || isCrops || isPlansList || isEmployees || isMaterials;
+  const query = searchEnabled ? (searchParams.get('q') ?? '') : '';
   const searchPlaceholder = isFields
     ? 'Поиск полей...'
     : isPlansSection
@@ -90,14 +91,17 @@ export function AppLayout() {
         ? 'Поиск сотрудников...'
         : isMaterials
           ? 'Поиск материалов...'
-          : 'Поиск культур...';
+          : isOrganization
+            ? 'Поиск'
+            : 'Поиск культур...';
 
   const handleSearch = (value: string) => {
+    if (isOrganization) return;
     if (isPlansSection && !isPlansList) {
       navigate(value ? `/plans?q=${encodeURIComponent(value)}` : '/plans');
       return;
     }
-    if (!isFields && !isCrops && !isPlansList && !isEmployees && !isMaterials) {
+    if (!searchEnabled) {
       navigate(value ? `/crops?q=${encodeURIComponent(value)}` : '/crops');
       return;
     }
@@ -153,6 +157,7 @@ export function AppLayout() {
               type="search"
               placeholder={searchPlaceholder}
               value={query}
+              disabled={isOrganization}
               onChange={(event) => handleSearch(event.target.value)}
             />
           </label>
@@ -203,6 +208,15 @@ export function AppLayout() {
               </button>
               {userMenuOpen ? (
                 <div className={styles.userMenu}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setUserMenuOpen(false);
+                      navigate('/organization');
+                    }}
+                  >
+                    Организация
+                  </button>
                   <button
                     type="button"
                     onClick={() => {

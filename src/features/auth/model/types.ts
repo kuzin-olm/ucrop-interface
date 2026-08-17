@@ -1,6 +1,11 @@
+export type OrganizationPlan = 'free' | 'pro' | 'enterprise';
+
 export type Organization = {
   id: string;
   name: string;
+  inn?: string;
+  region?: string;
+  plan?: OrganizationPlan;
 };
 
 export type UserStatus = 'active' | 'inactive';
