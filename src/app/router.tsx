@@ -8,6 +8,7 @@ import { EmployeesPage } from '@/pages/EmployeesPage';
 import { FieldsPage } from '@/pages/FieldsPage';
 import { HomePage } from '@/pages/HomePage';
 import { MaterialsPage } from '@/pages/MaterialsPage';
+import { NotificationsPage } from '@/pages/NotificationsPage';
 import { OrganizationPage } from '@/pages/OrganizationPage';
 import { LoginPage } from '@/pages/LoginPage';
 import { PlanResultPage } from '@/pages/PlanResultPage';
@@ -78,6 +79,10 @@ export const router = createBrowserRouter([
       {
         path: 'organization',
         element: <OrganizationPage />,
+      },
+      {
+        path: 'notifications',
+        element: <NotificationsPage />,
       },
       {
         path: 'settings',

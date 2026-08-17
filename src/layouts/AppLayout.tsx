@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { NavLink, Outlet, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
-import { Bell, Menu, Search, Settings2, Sprout, X } from 'lucide-react';
+import { Menu, Search, Settings2, Sprout, X } from 'lucide-react';
 import { useAuth } from '@/app/auth';
 import { useSeason } from '@/app/season';
+import { NotificationsBell } from '@/features/notifications/components/NotificationsBell';
 import { SeasonsModal } from '@/features/seasons/components/SeasonsModal';
 import { cn } from '@/shared/lib/cn';
 import { PRIMARY_NAV, SECONDARY_NAV, type NavItem } from './navigation';
@@ -81,6 +82,7 @@ export function AppLayout() {
   const isEmployees = location.pathname === '/employees';
   const isMaterials = location.pathname === '/materials';
   const isOrganization = location.pathname === '/organization';
+  const isNotifications = location.pathname === '/notifications';
   const searchEnabled = isFields || isCrops || isPlansList || isEmployees || isMaterials;
   const query = searchEnabled ? (searchParams.get('q') ?? '') : '';
   const searchPlaceholder = isFields
@@ -91,12 +93,12 @@ export function AppLayout() {
         ? 'Поиск сотрудников...'
         : isMaterials
           ? 'Поиск материалов...'
-          : isOrganization
+          : isOrganization || isNotifications
             ? 'Поиск'
             : 'Поиск культур...';
 
   const handleSearch = (value: string) => {
-    if (isOrganization) return;
+    if (isOrganization || isNotifications) return;
     if (isPlansSection && !isPlansList) {
       navigate(value ? `/plans?q=${encodeURIComponent(value)}` : '/plans');
       return;
@@ -157,7 +159,7 @@ export function AppLayout() {
               type="search"
               placeholder={searchPlaceholder}
               value={query}
-              disabled={isOrganization}
+              disabled={isOrganization || isNotifications}
               onChange={(event) => handleSearch(event.target.value)}
             />
           </label>
@@ -186,10 +188,7 @@ export function AppLayout() {
               </button>
             </div>
 
-            <button type="button" className={styles.notify} aria-label="Уведомления">
-              <Bell size={18} aria-hidden="true" />
-              <span className={styles.dot} />
-            </button>
+            <NotificationsBell />
 
             <div className={styles.userWrap} ref={userMenuRef}>
               <button
